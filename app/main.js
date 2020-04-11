@@ -3,13 +3,13 @@ define(function (require) {
     // until the browser has finished loading the page    
     // Load app-specific modules (like model) with a relative require 
     // Load library/vendor (like jquery) modules using full IDs
-    require(['jquery', 'tf', 'tokenizer', 'domReady!'], function ($, tf, tokenizer) {  
+    require(['jquery', 'tf', './tokenizer', 'domReady!'], function ($, tf, tokenizer) {  
 
         // tfjs requires that models are loaded from a URL, so 
         // if you want to develop locally, the easiest way to 
         // load is to start a local server: 
         // python -m http.server 8000
-        var modelURL = '//' + location.host + '//model/model.json';        
+        var modelURL = '//' + location.host + '/model/model.json';        
         
         tf.loadLayersModel(modelURL).then(function(model) {
 
