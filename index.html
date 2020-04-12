@@ -14,10 +14,10 @@
 		<p class="card-text text-left">
 			<b>Type</b> some text into the box and hit <b>enter</b> to see how a language model based on the <a href="https://www.solarium.gov">Cyberspace Solarium Commission's final report</a> completes the sentence. <br>
 			<form id="text" action="/">
-			<textarea class="form-control" style="min-height: 150px; min-width: 100%"></textarea>
-			<input type="range" min="0.1" step="0.05" max="2.5" value="0.75" class="form-control-range" id="temperature" oninput="document.querySelector('#temp_display').textContent = (Math.round(value * 100) / 100).toFixed(2)">
+			<textarea class="form-control" style="min-height: 150px; min-width: 100%">The United States Government should</textarea>
+			<input type="range" min="0.1" step="0.05" max="2.5" value="1.0" class="form-control-range" id="temperature" oninput="document.querySelector('#temp_display').textContent = (Math.round(value * 100) / 100).toFixed(2)">
 			</form>
-			<br><p class="text-left">The softmax temperature is set to <b id="temp_display">0.75</b>. Temperature controls how random the completed sentence is. A higher temperature will produce more random sentences. Use the slider above to adjust the temperature.</p>
+			<br><p class="text-left">The softmax temperature is set to <b id="temp_display">1.0</b>. Temperature controls how random the completed sentence is. A higher temperature will produce more random sentences. Use the slider above to adjust the temperature.</p>
 		</p>
 		</div>
 	</div>

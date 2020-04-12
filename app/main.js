@@ -12,30 +12,16 @@ define(function (require) {
         var modelURL = '//' + location.host + '/model/model.json';        
         
         tf.loadLayersModel(modelURL).then(function(model) {
-
-            var seeds = [
-                "Public private",
-                "Congress should",
-                "Cybersecurity",
-                "Federal agencies",
-                "Intelligence sharing",
-                "Information technology",
-                "Information technologies",
-            ]
-
-            $('textarea').val(seeds[Math.floor(Math.random() * seeds.length)]);
-
+            
             var sample = function(preds, temperature, callback) {
-                // we don't exponentiate b/c tf.multinomial takes a log prob
-                var preds = preds.map(p=>Math.exp(Math.log(p)/temperature));
-                var sum = preds.reduce((a,b) => a + b, 0);
-                var pred = preds.map(p => p / sum);
-                tf.multinomial(preds, 1, normalized=true).array().then(r=>callback(r[0]));
+                tf.multinomial(preds.map(p=>Math.log(p)/temperature), 1)
+                    .array().then(r=>callback(r[0]));
             }
     
             var get_next_word = function(done, sequence_length=0) {
                 // create our input vector
-                var input = tokenizer.text_to_sequence($('textarea').val());
+                var period = tokenizer.text_to_sequence('.')[0];
+                var input = tokenizer.text_to_sequence('.' + $('textarea').val());
                 var buffer = new Array(25).fill(0).concat(input).slice(-25);
     
                 // get the next word
