@@ -12,7 +12,7 @@ define(function (require) {
         var modelURL = '//' + location.host + '/model/model.json';        
         
         tf.loadLayersModel(modelURL).then(function(model) {
-            
+
             var sample = function(preds, temperature, callback) {
                 tf.multinomial(preds.map(p=>Math.log(p)/temperature), 1)
                     .array().then(r=>callback(r[0]));
@@ -26,7 +26,7 @@ define(function (require) {
     
                 // get the next word
                 model.predict(tf.tensor2d([buffer])).array().then(function(preds){
-                    sample(preds[0], $('#temperature').val(), function(seq) {
+                    sample(preds[0], parseFloat($('#temperature').val()), function(seq) {
                         var word = tokenizer.sequence_to_text([seq]);
 
                         if (word == '.') { 
