@@ -27,8 +27,10 @@ define(function (require) {
 
             var sample = function(preds, temperature, callback) {
                 // we don't exponentiate b/c tf.multinomial takes a log prob
-                var preds = preds.map(p=>Math.log(p)/temperature);
-                tf.multinomial(preds, 1).array().then(r=>callback(r[0]));
+                var preds = preds.map(p=>Math.exp(Math.log(p)/temperature));
+                var sum = preds.reduce((a,b) => a + b, 0);
+                var pred = preds.map(p => p / sum);
+                tf.multinomial(preds, 1, normalized=true).array().then(r=>callback(r[0]));
             }
     
             var get_next_word = function(done, sequence_length=0) {
