@@ -13,6 +13,18 @@ define(function (require) {
         
         tf.loadLayersModel(modelURL).then(function(model) {
 
+            var seeds = [
+                "Public private",
+                "Congress should",
+                "Cybersecurity",
+                "Federal agencies",
+                "Intelligence sharing",
+                "Information technology",
+                "Information technologies",
+            ]
+
+            $('textarea').val(seeds[Math.floor(Math.random() * seeds.length)]);
+
             var sample = function(preds, temperature, callback) {
                 // we don't exponentiate b/c tf.multinomial takes a log prob
                 var preds = preds.map(p=>Math.log(p)/temperature);
